@@ -9,21 +9,30 @@ using namespace std;
 using namespace cv;
 
 int main(int argc, char *argv[]) {
-  if (argc < 3) {
+  if (argc < 2) {
     cout << "Not enough parameters" << endl;
     return -1;
   }
 
-  Mat I;
+  Mat img;
   if (argc == 4 && !strcmp(argv[3], "G"))
-    I = imread(argv[1], IMREAD_GRAYSCALE);
+    img = imread(argv[1], IMREAD_GRAYSCALE);
   else
-    I = imread(argv[1], IMREAD_COLOR);
+    img = imread(argv[1], IMREAD_COLOR);
 
-  if (I.empty()) {
+  if (img.empty()) {
     cout << "The image" << argv[1] << " could not be loaded." << endl;
     return -1;
   }
+
+  // Scalar intensity = img.at<uchar>(100, 100);
+  Vec3b bgr_intensity = img.at<Vec3b>(100, 100);
+  Vec3f bgr_intensity_float = img.at<Vec3f>(100, 100);
+
+  // cout << "intensity of pixel (100, 100): " << intensity << endl;
+  cout << "bgr intensity of pixel (100, 100): " << bgr_intensity << endl;
+  cout << "bgr intensity float of pixel (100, 100): " << bgr_intensity_float
+       << endl;
 
   return 0;
 }
